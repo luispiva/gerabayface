@@ -31,6 +31,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
+    //Se debug = 2 ele mostra no rodape ( footer) as querys sql executadas nas views
 	Configure::write('debug',2);
 
 /**
