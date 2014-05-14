@@ -20,7 +20,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses('Controller', 'Controller');
-
+//importa o controler de pabxconf
+App::import('Controller', 'PabxconfsController');
 /**
  * Application Controller
  *
@@ -30,6 +31,9 @@ App::uses('Controller', 'Controller');
  * @package		app.Controller
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
+
+//Instacia a classe Pabxconfcontroller.php
+$pabxconf = new PabxconfsController();
 class ClientesController extends Controller {
 
     // a variavel Scanffold gera os controllers e views automaticamente 
@@ -41,6 +45,7 @@ class ClientesController extends Controller {
     //Lista Clientes
     function index() {
         $this->set('clientes', $this->Cliente->find('all'));
+         $this->set('pabxconfs', $this->pabxconf->find('all'));
     }
     // Cadastra novo Cliente
     public function add() {
