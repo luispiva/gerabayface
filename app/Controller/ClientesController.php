@@ -20,8 +20,6 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses('Controller', 'Controller');
-//importa o controler de pabxconf
-App::import('Controller', 'PabxconfsController');
 /**
  * Application Controller
  *
@@ -32,23 +30,30 @@ App::import('Controller', 'PabxconfsController');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 
-//Instacia a classe Pabxconfcontroller.php
-$pabxconf = new PabxconfsController();
 class ClientesController extends Controller {
+//Instacia a classe Pabxconfcontroller.php
 
     // a variavel Scanffold gera os controllers e views automaticamente 
     //public $scaffold;
     
     public $helpers = array('Html', 'Form');
     public $name = 'Clientes';
-
+ 
+  
     //Lista Clientes
     function index() {
         $this->set('clientes', $this->Cliente->find('all'));
-         $this->set('pabxconfs', $this->pabxconf->find('all'));
+       
+    }
+    public function getPabxconfs()
+    {
+        $pabxconfs = $this->Cliente->Pabxconf->find('list', array ( 'fields' => 'id', 'nome'));
+                $this->set(compact($pabxconfs));
     }
     // Cadastra novo Cliente
     public function add() {
+       
+            
         $this->set('title', 'Novo Cliente');
         if ($this->request->is("post")) {
             $this->Cliente->create();
@@ -59,6 +64,7 @@ class ClientesController extends Controller {
                 $this->Session->setFlash(__("Erro: não foi possível salvar o registro."));
                 $this->redirect(array("action" => '/add/'));
             }
+            self::getPabxconfs();
         }
     }
     //Editar Cliente

@@ -4,7 +4,8 @@ class Pabxconf extends AppModel
 {
 public $name = 'Pabxconf';
  public $useTable = 'pabxconfs';
- public $displayField = 'nome';
+ //Clientes tem muitas PABX modelos
+public $hasmany = array('Clientes');
 
 }
 
