@@ -29,7 +29,7 @@ App::uses('Controller', 'Controller');
  * @package		app.Controller
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
-
+App::import("Controller", "PabxconfsController");
 class ClientesController extends Controller {
 //Instacia a classe Pabxconfcontroller.php
 
@@ -47,8 +47,8 @@ class ClientesController extends Controller {
     }
     public function getPabxconfs()
     {
-        $pabxconfs = $this->Cliente->Pabxconf->find('list', array ( 'fields' => 'id', 'nome'));
-                $this->set(compact($pabxconfs));
+        $funfa = $this->Cliente->Pabxconf->find('list', array ( 'fields' => 'id', 'nome'));
+                $this->set(compact($funfa));
     }
     // Cadastra novo Cliente
     public function add() {

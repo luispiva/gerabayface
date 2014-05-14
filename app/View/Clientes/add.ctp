@@ -11,7 +11,7 @@ echo $this->Form->create('Cliente');
  echo $this->Form->input('nome'); 
  echo $this->Form->input('endereco'); 
  echo $this->Form->input('fone'); 
- echo $this->Form->input('pabxconfs_id', array('options' => $pabxconfs));
+ echo $this->Form->input('pabxconf_id',array( 'options' => $funfa));
 
  echo $this->Form->input('Enviar', array('label' => FALSE, 'type' => 'submit')); 
  echo $this->Form->end(); 
