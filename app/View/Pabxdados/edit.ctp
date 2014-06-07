@@ -1,7 +1,7 @@
 <div class="pabxdados form">
 <?php echo $this->Form->create('Pabxdado'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Pabxdado'); ?></legend>
+		<legend><?php echo __('Admib Edit Pabxdado'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('clientes_id');
