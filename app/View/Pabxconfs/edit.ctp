@@ -1,20 +1,22 @@
-<body> <div id="navegacao">
-        <?php echo $this->Html->link('Home', array('controller' => 'home', 'action' => 'index')); ?>
-        |
-        <?php echo $this->Html->link('Listar Clientes', array('controller' => 'clientes', 'action' => 'index')); ?>
-        |
-        <?php echo $this->Html->link('Novo PABX', array('controller' => 'pabxconfs', 'action' => 'add')); ?>
-        |
-        <?php echo $this->Html->link('Gerar Arquivo', array('controller' => 'pabxdados', 'action' => 'index')); ?>
+<div class="pabxconfs form">
+<?php echo $this->Form->create('Pabxconf'); ?>
+	<fieldset>
+		<legend><?php echo __('Edit Pabxconf'); ?></legend>
+	<?php
+		echo $this->Form->input('id');
+		echo $this->Form->input('name');
+		echo $this->Form->input('descricao');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
 
-
-    </div>
-    <?php
-    echo $this->Form->create('Pabxconf');
-    echo $this->Form->input('id', array('type' => 'hidden'));
-    echo $this->Form->input('nome');
-echo $this->Form->input('descricao');
-    echo $this->Form->input('Alterar', array('type' => 'submit', 'label' => FALSE));
-    echo $this->Form->end();
-    ?>
-</body>
+		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Pabxconf.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Pabxconf.id'))); ?></li>
+		<li><?php echo $this->Html->link(__('List Pabxconfs'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
+	</ul>
+</div>

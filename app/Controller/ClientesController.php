@@ -1,105 +1,185 @@
 <?php
+App::uses('AppController', 'Controller');
+/**
+ * Clientes Controller
+ *
+ * @property Cliente $Cliente
+ * @property PaginatorComponent $Paginator
+ */
+class ClientesController extends AppController {
 
 /**
- * Application level Controller
+ * Components
  *
- * This file is application-wide controller file. You can put all
- * application-wide controller-related methods here.
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.Controller
- * @since         CakePHP(tm) v 0.2.9
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @var array
  */
-App::uses('Controller', 'Controller');
+	public $components = array('Paginator');
+
 /**
- * Application Controller
+ * index method
  *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @package		app.Controller
- * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ * @return void
  */
-App::import("Controller", "PabxconfsController");
-class ClientesController extends Controller {
-//Instacia a classe Pabxconfcontroller.php
+	public function index() {
+		$this->Cliente->recursive = 0;
+		$this->set('clientes', $this->Paginator->paginate());
+	}
 
-    // a variavel Scanffold gera os controllers e views automaticamente 
-    //public $scaffold;
-    
-    public $helpers = array('Html', 'Form');
-    public $name = 'Clientes';
- 
-  
-    //Lista Clientes
-    function index() {
-        $this->set('clientes', $this->Cliente->find('all'));
-       
-    }
-    public function getPabxconfs()
-    {
-        $funfa = $this->Cliente->Pabxconf->find('list', array ( 'fields' => 'id', 'nome'));
-                $this->set(compact($funfa));
-    }
-    // Cadastra novo Cliente
-    public function add() {
-       
-            
-        $this->set('title', 'Novo Cliente');
-        if ($this->request->is("post")) {
-            $this->Cliente->create();
-            if ($this->Cliente->saveAssociated($this->request->data)) {
-                $this->Session->setFlash(__("Registro salvo com sucesso."));
-                $this->redirect(array("action" => '/index/'));
-            } else {
-                $this->Session->setFlash(__("Erro: não foi possível salvar o registro."));
-                $this->redirect(array("action" => '/add/'));
-            }
-            self::getPabxconfs();
-        }
-    }
-    //Editar Cliente
-    public function edit($id = NULL) {
-        $this->Cliente->id = $id;
-        if (!$this->Cliente->exists()) {
-            throw new NotFoundException(__('Registro não encontrado.'));
-        }
-        if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->Cliente->saveAssociated($this->request->data)) {
-                $this->Session->setFlash(__('Registro salvo com sucesso.'));
-                $this->redirect(array('action' => '/index/'));
-            } else {
-                $this->Session->setFlash(__('Erro: não foi possível salvar o registro.'));
-            }
-        } else {
-            $this->request->data = $this->Cliente->read(NULL, $id);
-        }
-    }
-    //Excluir Cliente
-    public function delete($id = NULL) {
-        if (!$id) {
-            $this->Session->setFlash('ID inválido');
-            $this->redirect(array('action' => 'index'));
-        }
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function view($id = null) {
+		if (!$this->Cliente->exists($id)) {
+			throw new NotFoundException(__('Invalid cliente'));
+		}
+		$options = array('conditions' => array('Cliente.' . $this->Cliente->primaryKey => $id));
+		$this->set('cliente', $this->Cliente->find('first', $options));
+	}
 
-        if ($this->Cliente->delete($id)) {
-            $this->Session->setFlash('Cliente deletado');
-            $this->redirect(array('action' => 'index'));
-        }
+/**
+ * add method
+ *
+ * @return void
+ */
+	public function add() {
+		if ($this->request->is('post')) {
+			$this->Cliente->create();
+			if ($this->Cliente->save($this->request->data)) {
+				return $this->flash(__('The cliente has been saved.'), array('action' => 'index'));
+			}
+		}
+		$pabxconfs = $this->Cliente->Pabxconf->find('list');
+		$this->set(compact('pabxconfs'));
+	}
 
-        $this->Session->setFlash('Cliente não foi deletado');
-        $this->redirect(array('action' => 'index'));
-    }
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		if (!$this->Cliente->exists($id)) {
+			throw new NotFoundException(__('Invalid cliente'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Cliente->save($this->request->data)) {
+				return $this->flash(__('The cliente has been saved.'), array('action' => 'index'));
+			}
+		} else {
+			$options = array('conditions' => array('Cliente.' . $this->Cliente->primaryKey => $id));
+			$this->request->data = $this->Cliente->find('first', $options);
+		}
+		$pabxconfs = $this->Cliente->Pabxconf->find('list');
+		$this->set(compact('pabxconfs'));
+	}
 
+/**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		$this->Cliente->id = $id;
+		if (!$this->Cliente->exists()) {
+			throw new NotFoundException(__('Invalid cliente'));
+		}
+		$this->request->allowMethod('post', 'delete');
+		if ($this->Cliente->delete()) {
+			return $this->flash(__('The cliente has been deleted.'), array('action' => 'index'));
+		} else {
+			return $this->flash(__('The cliente could not be deleted. Please, try again.'), array('action' => 'index'));
+		}
+	}
+
+/**
+ * admib_index method
+ *
+ * @return void
+ */
+	public function admib_index() {
+		$this->Cliente->recursive = 0;
+		$this->set('clientes', $this->Paginator->paginate());
+	}
+
+/**
+ * admib_view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admib_view($id = null) {
+		if (!$this->Cliente->exists($id)) {
+			throw new NotFoundException(__('Invalid cliente'));
+		}
+		$options = array('conditions' => array('Cliente.' . $this->Cliente->primaryKey => $id));
+		$this->set('cliente', $this->Cliente->find('first', $options));
+	}
+
+/**
+ * admib_add method
+ *
+ * @return void
+ */
+	public function admib_add() {
+		if ($this->request->is('post')) {
+			$this->Cliente->create();
+			if ($this->Cliente->save($this->request->data)) {
+				return $this->flash(__('The cliente has been saved.'), array('action' => 'index'));
+			}
+		}
+		$pabxconfs = $this->Cliente->Pabxconf->find('list');
+		$this->set(compact('pabxconfs'));
+	}
+
+/**
+ * admib_edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admib_edit($id = null) {
+		if (!$this->Cliente->exists($id)) {
+			throw new NotFoundException(__('Invalid cliente'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Cliente->save($this->request->data)) {
+				return $this->flash(__('The cliente has been saved.'), array('action' => 'index'));
+			}
+		} else {
+			$options = array('conditions' => array('Cliente.' . $this->Cliente->primaryKey => $id));
+			$this->request->data = $this->Cliente->find('first', $options);
+		}
+		$pabxconfs = $this->Cliente->Pabxconf->find('list');
+		$this->set(compact('pabxconfs'));
+	}
+
+/**
+ * admib_delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admib_delete($id = null) {
+		$this->Cliente->id = $id;
+		if (!$this->Cliente->exists()) {
+			throw new NotFoundException(__('Invalid cliente'));
+		}
+		$this->request->allowMethod('post', 'delete');
+		if ($this->Cliente->delete()) {
+			return $this->flash(__('The cliente has been deleted.'), array('action' => 'index'));
+		} else {
+			return $this->flash(__('The cliente could not be deleted. Please, try again.'), array('action' => 'index'));
+		}
+	}
 }
-
-?>

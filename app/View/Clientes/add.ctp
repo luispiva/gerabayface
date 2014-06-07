@@ -1,20 +1,22 @@
-<body>
-     <div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link('Home', array('controller' => 'home', 'action' => 'index')); ?></li>
-<li><?php echo $this->Html->link('Listar Clientes', array('controller' => 'clientes', 'action' => 'index')); ?></li>
-<li><?php echo $this->Html->link('Listar PABX', array('controller' => 'pabxconf', 'action' => 'index')); ?></li>
-<li><?php echo $this->Html->link('Gerar Arquivo', array('controller' => 'pabxdados', 'action' => 'index')); ?></li>       </ul>
+<div class="clientes form">
+<?php echo $this->Form->create('Cliente'); ?>
+	<fieldset>
+		<legend><?php echo __('Add Cliente'); ?></legend>
+	<?php
+		echo $this->Form->input('pabxconf_id');
+		echo $this->Form->input('nome');
+		echo $this->Form->input('endereco');
+		echo $this->Form->input('fone');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
 </div>
-    <?php 
-echo $this->Form->create('Cliente');
- echo $this->Form->input('nome'); 
- echo $this->Form->input('endereco'); 
- echo $this->Form->input('fone'); 
- echo $this->Form->input('pabxconf_id',array( 'options' => $funfa));
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
 
- echo $this->Form->input('Enviar', array('label' => FALSE, 'type' => 'submit')); 
- echo $this->Form->end(); 
-?>
-</body>
-
+		<li><?php echo $this->Html->link(__('List Clientes'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Pabxconfs'), array('controller' => 'pabxconfs', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Pabxconf'), array('controller' => 'pabxconfs', 'action' => 'add')); ?> </li>
+	</ul>
+</div>

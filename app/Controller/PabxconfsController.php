@@ -1,90 +1,177 @@
 <?php
+App::uses('AppController', 'Controller');
+/**
+ * Pabxconfs Controller
+ *
+ * @property Pabxconf $Pabxconf
+ * @property PaginatorComponent $Paginator
+ */
+class PabxconfsController extends AppController {
 
 /**
- * Application level Controller
+ * Components
  *
- * This file is application-wide controller file. You can put all
- * application-wide controller-related methods here.
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.Controller
- * @since         CakePHP(tm) v 0.2.9
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @var array
  */
-App::uses('Controller', 'Controller');
+	public $components = array('Paginator');
 
 /**
- * Application Controller
+ * index method
  *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @package		app.Controller
- * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ * @return void
  */
-class PabxconfsController extends Controller {
+	public function index() {
+		$this->Pabxconf->recursive = 0;
+		$this->set('pabxconfs', $this->Paginator->paginate());
+	}
 
-    //public $scaffold;
-    public $helpers = array("Form", "Html");
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function view($id = null) {
+		if (!$this->Pabxconf->exists($id)) {
+			throw new NotFoundException(__('Invalid pabxconf'));
+		}
+		$options = array('conditions' => array('Pabxconf.' . $this->Pabxconf->primaryKey => $id));
+		$this->set('pabxconf', $this->Pabxconf->find('first', $options));
+	}
 
-    public function index() {
-        $this->set('pabxconfs', $this->Pabxconf->find('all'));
-    }
-    // Cadastra novo Cliente
-    public function add() {
-        $this->set('title', 'Novo PABX');
-        if ($this->request->is("post")) {
-            $this->Pabxconf->create();
-            if ($this->Pabxconf->saveAssociated($this->request->data)) {
-                $this->Session->setFlash(__("Registro salvo com sucesso."));
-                $this->redirect(array("action" => '/index/'));
-            } else {
-                $this->Session->setFlash(__("Erro: não foi possível salvar o registro."));
-                $this->redirect(array("action" => '/add/'));
-            }
-        }
-    }
-     //Editar Modelo PABX
-    public function edit($id = NULL) {
-        $this->Pabxconf->id = $id;
-        if (!$this->Pabxconf->exists()) {
-            throw new NotFoundException(__('Registro não encontrado.'));
-        }
-        if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->Pabxconf->saveAssociated($this->request->data)) {
-                $this->Session->setFlash(__('Registro salvo com sucesso.'));
-                $this->redirect(array('action' => '/index/'));
-            } else {
-                $this->Session->setFlash(__('Erro: não foi possível salvar o registro.'));
-            }
-        } else {
-            $this->request->data = $this->Pabxconf->read(NULL, $id);
-        }
-    }
-    //Excluir Modelo PABX
-    public function delete($id = NULL) {
-        if (!$id) {
-            $this->Session->setFlash('ID inválido');
-            $this->redirect(array('action' => 'index'));
-        }
+/**
+ * add method
+ *
+ * @return void
+ */
+	public function add() {
+		if ($this->request->is('post')) {
+			$this->Pabxconf->create();
+			if ($this->Pabxconf->save($this->request->data)) {
+				return $this->flash(__('The pabxconf has been saved.'), array('action' => 'index'));
+			}
+		}
+	}
 
-        if ($this->Pabxconf->delete($id)) {
-            $this->Session->setFlash('Modelo PABX deletado');
-            $this->redirect(array('action' => 'index'));
-        }
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		if (!$this->Pabxconf->exists($id)) {
+			throw new NotFoundException(__('Invalid pabxconf'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Pabxconf->save($this->request->data)) {
+				return $this->flash(__('The pabxconf has been saved.'), array('action' => 'index'));
+			}
+		} else {
+			$options = array('conditions' => array('Pabxconf.' . $this->Pabxconf->primaryKey => $id));
+			$this->request->data = $this->Pabxconf->find('first', $options);
+		}
+	}
 
-        $this->Session->setFlash('Modelo PABX não foi deletado');
-        $this->redirect(array('action' => 'index'));
-    }
+/**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		$this->Pabxconf->id = $id;
+		if (!$this->Pabxconf->exists()) {
+			throw new NotFoundException(__('Invalid pabxconf'));
+		}
+		$this->request->allowMethod('post', 'delete');
+		if ($this->Pabxconf->delete()) {
+			return $this->flash(__('The pabxconf has been deleted.'), array('action' => 'index'));
+		} else {
+			return $this->flash(__('The pabxconf could not be deleted. Please, try again.'), array('action' => 'index'));
+		}
+	}
 
+/**
+ * admib_index method
+ *
+ * @return void
+ */
+	public function admib_index() {
+		$this->Pabxconf->recursive = 0;
+		$this->set('pabxconfs', $this->Paginator->paginate());
+	}
+
+/**
+ * admib_view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admib_view($id = null) {
+		if (!$this->Pabxconf->exists($id)) {
+			throw new NotFoundException(__('Invalid pabxconf'));
+		}
+		$options = array('conditions' => array('Pabxconf.' . $this->Pabxconf->primaryKey => $id));
+		$this->set('pabxconf', $this->Pabxconf->find('first', $options));
+	}
+
+/**
+ * admib_add method
+ *
+ * @return void
+ */
+	public function admib_add() {
+		if ($this->request->is('post')) {
+			$this->Pabxconf->create();
+			if ($this->Pabxconf->save($this->request->data)) {
+				return $this->flash(__('The pabxconf has been saved.'), array('action' => 'index'));
+			}
+		}
+	}
+
+/**
+ * admib_edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admib_edit($id = null) {
+		if (!$this->Pabxconf->exists($id)) {
+			throw new NotFoundException(__('Invalid pabxconf'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Pabxconf->save($this->request->data)) {
+				return $this->flash(__('The pabxconf has been saved.'), array('action' => 'index'));
+			}
+		} else {
+			$options = array('conditions' => array('Pabxconf.' . $this->Pabxconf->primaryKey => $id));
+			$this->request->data = $this->Pabxconf->find('first', $options);
+		}
+	}
+
+/**
+ * admib_delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admib_delete($id = null) {
+		$this->Pabxconf->id = $id;
+		if (!$this->Pabxconf->exists()) {
+			throw new NotFoundException(__('Invalid pabxconf'));
+		}
+		$this->request->allowMethod('post', 'delete');
+		if ($this->Pabxconf->delete()) {
+			return $this->flash(__('The pabxconf has been deleted.'), array('action' => 'index'));
+		} else {
+			return $this->flash(__('The pabxconf could not be deleted. Please, try again.'), array('action' => 'index'));
+		}
+	}
 }
-
-?>

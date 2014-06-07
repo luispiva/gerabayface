@@ -1,28 +1,44 @@
-<div id="container">
-    <div class="actions">
-        <ul>
-            <li><?php echo $this->Html->link('Home', array('controller' => 'home', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Listar Cliente', array('controller' => 'clientes', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Novo PABX', array('controller' => 'pabxconfs', 'action' => 'add')); ?></li>
-            <li><?php echo $this->Html->link('Gerar Arquivo', array('controller' => 'pabxdados', 'action' => 'index')); ?></li>
-        </ul>
-    </div>  
-    <table cellpadding="0" cellspacing="0"> 
-        <tr> 
-
-            <th>Nome</th>
-            <th>Descricao</th> 
-            <th>Ações</th> 
-
-        </tr> 
-        <?php foreach ($pabxconfs as $pabxconf) { ?> 
-            <tr>
-                <td><?php echo $pabxconf['Pabxconf']['nome']; ?></td> 
-                <td><?php echo $pabxconf['Pabxconf']['descricao']; ?></td> 
-
-                <td class="actions"><?php echo $this->Html->link('Editar', array('action' => 'edit', $pabxconf['Pabxconf']['id'])); ?> 
-                    | <?php echo $this->Html->link('Excluir', array('action' => 'delete', $pabxconf['Pabxconf']['id']), array('confirm' => 'Você tem certeza que quer excluir este usuário?')); ?></td> <?php } ?> </tr> </table>
-    <div class="paging">
-
-    </div>
+<div class="pabxconfs index">
+	<h2><?php echo __('Pabxconfs'); ?></h2>
+	<table cellpadding="0" cellspacing="0">
+	<tr>
+			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			<th><?php echo $this->Paginator->sort('name'); ?></th>
+			<th><?php echo $this->Paginator->sort('descricao'); ?></th>
+			<th class="actions"><?php echo __('Actions'); ?></th>
+	</tr>
+	<?php foreach ($pabxconfs as $pabxconf): ?>
+	<tr>
+		<td><?php echo h($pabxconf['Pabxconf']['id']); ?>&nbsp;</td>
+		<td><?php echo h($pabxconf['Pabxconf']['name']); ?>&nbsp;</td>
+		<td><?php echo h($pabxconf['Pabxconf']['descricao']); ?>&nbsp;</td>
+		<td class="actions">
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $pabxconf['Pabxconf']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $pabxconf['Pabxconf']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $pabxconf['Pabxconf']['id']), array(), __('Are you sure you want to delete # %s?', $pabxconf['Pabxconf']['id'])); ?>
+		</td>
+	</tr>
+<?php endforeach; ?>
+	</table>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	));
+	?>	</p>
+	<div class="paging">
+	<?php
+		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ''));
+		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+	?>
+	</div>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('New Pabxconf'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
+	</ul>
 </div>

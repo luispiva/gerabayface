@@ -1,11 +1,88 @@
-<?
+<?php
+App::uses('AppModel', 'Model');
+/**
+ * Cliente Model
+ *
+ * @property Pabxconf $Pabxconf
+ */
+class Cliente extends AppModel {
 
-class Cliente extends AppModel{
- public $name = 'Cliente';
- public $useTable = 'clientes';
-//public $belongsTo = array('Pabxconfs');
- public $hasMany = array('Pabxconfs');
- 
+/**
+ * Use database config
+ *
+ * @var string
+ */
+	public $useDbConfig = 'testebayface';
+
+/**
+ * Display field
+ *
+ * @var string
+ */
+	public $displayField = 'pabxconf_id';
+
+/**
+ * Validation rules
+ *
+ * @var array
+ */
+	public $validate = array(
+		'pabxconf_id' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'nome' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'endereco' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'fone' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+	);
+
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'Pabxconf' => array(
+			'className' => 'Pabxconf',
+			'foreignKey' => 'pabxconf_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
 }
-
-?>

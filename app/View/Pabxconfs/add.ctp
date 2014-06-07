@@ -1,30 +1,20 @@
-<?php
-/* CRUD : PABX Modelo
-     * Tabela     : Pabxconf
-     * Atributos  : id,nome,descrição.
-     * Model      : Pabxconf.php
-     * Controller : PabxconfsController.php
-     * View       :  add.ctp
-     */
-?>
-<body>
-    <!-- Menu de Navegação -->
-    <div class="actions">
-        <ul>
-            <li><?php echo $this->Html->link('Home', array('controller' => 'home', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Listar Clientes', array('controller' => 'clientes', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Listar PABX', array('controller' => 'pabxconf', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Gerar Arquivo', array('controller' => 'pabxdados', 'action' => 'index')); ?></li>       </ul>
-    </div>
-    <!-- Fim do Menu de Navegação -->
-    <?php
+<div class="pabxconfs form">
+<?php echo $this->Form->create('Pabxconf'); ?>
+	<fieldset>
+		<legend><?php echo __('Add Pabxconf'); ?></legend>
+	<?php
+		echo $this->Form->input('name');
+		echo $this->Form->input('descricao');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
 
-    echo $this->Form->create('Pabxconf');
-    echo $this->Form->input('nome');
-    echo $this->Form->input('Descricao');
-
-    echo $this->Form->input('Enviar', array('label' => FALSE, 'type' => 'submit'));
-    echo $this->Form->end();
-    ?>
-</body>
-
+		<li><?php echo $this->Html->link(__('List Pabxconfs'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
+	</ul>
+</div>

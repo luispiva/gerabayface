@@ -1,22 +1,24 @@
-<body> <div id="navegacao">
-        <?php echo $this->Html->link('Home', array('controller' => 'home', 'action' => 'index')); ?>
-        |
-        <?php echo $this->Html->link('Listar Clientes', array('controller' => 'clientes', 'action' => 'index')); ?>
-        |
-        <?php echo $this->Html->link('Listar PABX', array('controller' => 'pabxconfs', 'action' => 'index')); ?>
-        |
-        <?php echo $this->Html->link('Gerar Arquivo', array('controller' => 'pabxdados', 'action' => 'index')); ?>
+<div class="clientes form">
+<?php echo $this->Form->create('Cliente'); ?>
+	<fieldset>
+		<legend><?php echo __('Edit Cliente'); ?></legend>
+	<?php
+		echo $this->Form->input('id');
+		echo $this->Form->input('pabxconf_id');
+		echo $this->Form->input('nome');
+		echo $this->Form->input('endereco');
+		echo $this->Form->input('fone');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
 
-
-    </div>
-    <?php
-    echo $this->Form->create('Cliente');
-    echo $this->Form->input('id', array('type' => 'hidden'));
-    echo $this->Form->input('nome');
-    echo $this->Form->input('endereco');
-    echo $this->Form->input('fone');
-    echo $this->Form->input('pabxconfs_id');
-    echo $this->Form->input('Alterar', array('type' => 'submit', 'label' => FALSE));
-    echo $this->Form->end();
-    ?>
-</body>
+		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Cliente.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Cliente.id'))); ?></li>
+		<li><?php echo $this->Html->link(__('List Clientes'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Pabxconfs'), array('controller' => 'pabxconfs', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Pabxconf'), array('controller' => 'pabxconfs', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
