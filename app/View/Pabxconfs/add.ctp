@@ -1,7 +1,7 @@
 <div class="pabxconfs form">
 <?php echo $this->Form->create('Pabxconf'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Pabxconf'); ?></legend>
+		<legend><?php echo __('Admib Add Pabxconf'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
 		echo $this->Form->input('descricao');
