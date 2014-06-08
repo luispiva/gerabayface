@@ -1,24 +1,23 @@
 <div class="clientes form">
 <?php echo $this->Form->create('Cliente'); ?>
 	<fieldset>
-		<legend><?php echo __('Admib Edit Cliente'); ?></legend>
+		<legend><?php echo __('Administração Editar Cliente'); ?></legend>
 	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('pabxconf_id');
 		echo $this->Form->input('nome');
 		echo $this->Form->input('endereco');
 		echo $this->Form->input('fone');
+                echo $this->Form->input('pabxconf_id');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->end(__('Salvar')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	<h3><?php echo __('Ações'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Cliente.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Cliente.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Clientes'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Pabxconfs'), array('controller' => 'pabxconfs', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Novo Pabxconf'), array('controller' => 'pabxconfs', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Excluir'), array('action' => 'delete', $this->Form->value('Cliente.id')), array(), __('Deseja excluir o cliente # %s?', $this->Form->value('Cliente.id'))); ?></li>
+		<li><?php echo $this->Html->link(__('Mostrar Clientes'), array('action' => 'index')); ?></li>
+		
+		
 	</ul>
 </div>

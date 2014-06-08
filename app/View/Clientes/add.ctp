@@ -1,15 +1,16 @@
 <div class="clientes form">
 <?php echo $this->Form->create('Cliente'); ?>
 	<fieldset>
-		<legend><?php echo __('Admib Add Cliente'); ?></legend>
+		<legend><?php echo __('Administração Cadastro Cliente'); ?></legend>
 	<?php
-		echo $this->Form->input('pabxconf_id');
+		
 		echo $this->Form->input('nome');
 		echo $this->Form->input('endereco');
 		echo $this->Form->input('fone');
+                echo $this->Form->input('pabxconf_id');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->end(__('Salvar')); ?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
