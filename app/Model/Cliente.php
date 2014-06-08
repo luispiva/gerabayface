@@ -1,4 +1,10 @@
 <?php
+/**
+ * @WebAPP GeraBayface
+ * @framework CakePHP
+ * 
+ * @autor Luis H. Piva Mendes
+ */
 App::uses('AppModel', 'Model');
 /**
  * Cliente Model
@@ -8,6 +14,7 @@ App::uses('AppModel', 'Model');
 class Cliente extends AppModel {
 
 /**
+ * Configuração do Banco de dados
  * Use database config
  *
  * @var string
@@ -15,13 +22,15 @@ class Cliente extends AppModel {
 	public $useDbConfig = 'default';
 
 /**
+ * Campo da tabela que será mostrado 
  * Display field
  *
  * @var string
  */
-	public $displayField = 'pabxconf_id';
+	public $displayField = 'name';
 
 /**
+ * Validação dos campos dos formulários
  * Validation rules
  *
  * @var array
@@ -72,6 +81,7 @@ class Cliente extends AppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
+ * Relacionamentos entre as tabelas
  * belongsTo associations
  *
  * @var array

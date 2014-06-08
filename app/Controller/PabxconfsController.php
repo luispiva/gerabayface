@@ -1,4 +1,10 @@
 <?php
+/**
+ * @WebAPP GeraBayface
+ * @framework CakePHP
+ * 
+ * @autor Luis H. Piva Mendes
+ */
 App::uses('AppController', 'Controller');
 /**
  * Pabxconfs Controller

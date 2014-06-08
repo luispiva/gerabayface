@@ -1,4 +1,10 @@
 <?php
+/**
+ * @WebAPP GeraBayface
+ * @framework CakePHP
+ * 
+ * @autor Luis H. Piva Mendes
+ */
 App::uses('AppModel', 'Model');
 /**
  * Placa Model
@@ -6,8 +12,16 @@ App::uses('AppModel', 'Model');
  * @property Pabxconfs $Pabxconfs
  */
 class Placa extends AppModel {
-
+    
 /**
+ * Configuração com banco de dados
+ * Use database config
+ *
+ * @var string
+ */
+	public $useDbConfig = 'default';
+/**
+ * Campo mostrado no relacionamento
  * Display field
  *
  * @var string
@@ -15,6 +29,7 @@ class Placa extends AppModel {
 	public $displayField = 'nome';
 
 /**
+ * Validação dos campos do Formulário
  * Validation rules
  *
  * @var array
@@ -35,6 +50,7 @@ class Placa extends AppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
+ * Relacionamento das tabelas
  * belongsTo associations
  *
  * @var array

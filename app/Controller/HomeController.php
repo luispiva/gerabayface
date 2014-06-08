@@ -1,12 +1,18 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @WebAPP GeraBayface
+ * @framework CakePHP
+ * 
+ * @autor Luis H. Piva Mendes
  */
 
 class HomeController extends AppController
 {
+ /**  
+ * Index metod
+ * 
+ * @return void
+ */ 
     function index()
     {
         
