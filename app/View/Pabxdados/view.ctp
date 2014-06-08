@@ -31,7 +31,7 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Pabxdado'), array('action' => 'edit', $pabxdado['Pabxdado']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Editar Perfil Cliente'), array('action' => 'edit', $pabxdado['Pabxdado']['id'])); ?> </li>
 		<li><?php echo $this->Form->postLink(__('Delete Pabxdado'), array('action' => 'delete', $pabxdado['Pabxdado']['id']), array(), __('Are you sure you want to delete # %s?', $pabxdado['Pabxdado']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Pabxdados'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Pabxdado'), array('action' => 'add')); ?> </li>
