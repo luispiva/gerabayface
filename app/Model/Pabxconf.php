@@ -12,7 +12,7 @@ class Pabxconf extends AppModel {
  *
  * @var string
  */
-	public $useDbConfig = 'testebayface';
+	public $useDbConfig = 'default';
 
 /**
  * Display field

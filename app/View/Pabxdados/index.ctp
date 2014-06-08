@@ -13,13 +13,13 @@
 	<tr>
 		<td><?php echo h($pabxdado['Pabxdado']['id']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($pabxdado['Clientes']['id'], array('controller' => 'clientes', 'action' => 'view', $pabxdado['Clientes']['id'])); ?>
+			<?php echo $this->Html->link($pabxdado['Clientes']['nome'], array('controller' => 'clientes', 'action' => 'view', $pabxdado['Clientes']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $this->Html->link($pabxdado['Pabxconfs']['name'], array('controller' => 'pabxconfs', 'action' => 'view', $pabxdado['Pabxconfs']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($pabxdado['Placas']['id'], array('controller' => 'placas', 'action' => 'view', $pabxdado['Placas']['id'])); ?>
+			<?php echo $this->Html->link($pabxdado['Placas']['nome'], array('controller' => 'placas', 'action' => 'view', $pabxdado['Placas']['id'])); ?>
 		</td>
 		<td><?php echo h($pabxdado['Pabxdado']['serialplaca']); ?>&nbsp;</td>
 		<td class="actions">
