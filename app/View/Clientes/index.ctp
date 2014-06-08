@@ -17,6 +17,7 @@
 		<td><?php echo h($cliente['Cliente']['endereco']); ?>&nbsp;</td>
 		<td><?php echo h($cliente['Cliente']['fone']); ?>&nbsp;</td>
 		<td class="actions">
+                    <?php echo $this->Html->link(__('Imprimir'), array('action' => 'viewPdf', $cliente['Cliente']['id'])); ?>
 			<?php echo $this->Html->link(__('Mostrar'), array('action' => 'view', $cliente['Cliente']['id'])); ?>
 			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $cliente['Cliente']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Excluir'), array('action' => 'delete', $cliente['Cliente']['id']), array(), __('Deseja excluir # %s?', $cliente['Cliente']['id'])); ?>

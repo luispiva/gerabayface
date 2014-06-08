@@ -1,23 +1,28 @@
-<?php 
-App::import('Vendor','tcpdf/tcpdf'); 
+<?php
+App::import('Vendor','xtcpdf'); 
+$tcpdf = new XTCPDF();
+$textfont = 'freesans';
 
-//carrega o construtor do pdf
-$Pdf = new TCPDF();
+$tcpdf->SetAuthor("");
+$tcpdf->SetAutoPageBreak( false );
+$tcpdf->setHeaderFont(array($textfont,'',10));
+$tcpdf->xheadercolor = array(255,255,255);
+$tcpdf->xheadertext = 'Fecha: '. date('d-m-Y',time());
+$tcpdf->xfootertext = 'www.pedroventura.com';
 
-$Pdf->setPrintHeader(false);
+// Ahora imprimimos el contenido de la pagina en una posición determinada
+// estos datos son un ejemplo, y en mi ejemplo hay un pequeño texto y una imagen.
+$tcpdf->AddPage();
+$tcpdf->SetTextColor(0, 0, 0);
+$tcpdf->SetFont($textfont,'B',10);
+$tcpdf->Cell(10,20,'Nombre:', 0, 0);
+// configuramos la calidad de JPEG
+$tcpdf->setJPEGQuality(100);
+$tcpdf->Image($imagen, 0, 50, 200, 200, '', '', '', false, 150);  
 
-$Pdf->setPrintFooter(false);
+// se pueden asignar mas datos, ver la documentación de TCPDF
 
-$Pdf->SetMargins(10, 20, 0);
-
-$Pdf->AddPage('P','A4');
-
-$html = '
- <h1> PDF gerado pelo TCPDF</h1>
- <p>As configurações para cabeçalho e rodapé foram zeradas</p>';
-
-$Pdf->writeHTML($html);
-
-echo $Pdf->Output('Bayface.pdf','I');
+echo $tcpdf->Output('bayface.pdf', 'I'); //el pdf se muestra en el navegador
+//echo $tcpdf->Output('mi_archivo.pdf', 'I'); //el pdf se descarga
 
 ?>
